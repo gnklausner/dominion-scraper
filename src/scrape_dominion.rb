@@ -2,12 +2,17 @@ require 'mechanize'
 require 'io/console'
 require_relative './dominion_scraper'
 
-print "User Name: "
-USER_NAME = STDIN.gets.chomp
+if ARGV.size != 2
+  print "User Name: "
+  USER_NAME = STDIN.gets.chomp
 
-print "Password: "
-PASSWORD = STDIN.noecho(&:gets).chomp
-puts '' # Fun pitfall. Putting a print here causes the password to show.
+  print "Password: "
+  PASSWORD = STDIN.noecho(&:gets).chomp
+  puts '' # Fun pitfall. Putting a print here causes the password to show.
+else
+  USER_NAME = ARGV[0]
+  PASSWORD = ARGV[1]
+end
 
 #############################
 # Login
