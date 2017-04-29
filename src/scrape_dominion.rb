@@ -18,7 +18,13 @@ end
 # Login
 #############################
 agent = Mechanize.new
-usage_page = DominionScraper.Login(agent, "https://mya.dom.com/", USER_NAME, PASSWORD)
+
+begin
+  usage_page = DominionScraper.Login(agent, "https://mya.dom.com/", USER_NAME, PASSWORD)
+rescue
+  puts "Something went wrong- probably a connectivity issue."
+  exit
+end
 
 #############################
 # Get Usage Data
@@ -42,7 +48,12 @@ parameters = {
   "endMonth": dates.last.split("/")[0],
   "endYear": dates.last.split("/")[2]
 }
-billing_page = agent.get("https://mya.dom.com/Usage/ViewPastUsage", parameters)
+begin
+  billing_page = agent.get("https://mya.dom.com/Usage/ViewPastUsage", parameters)
+rescue
+  puts "Something went wrong- probably a connectivity issue."
+  exit
+end
 
 read_dates, bill_due_dates, bill_amounts = DominionScraper.GetBillingData(billing_page)
 

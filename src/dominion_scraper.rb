@@ -18,6 +18,11 @@ class DominionScraper < Scraper
   def self.GetUsageData(usage_page)
     usage_data_field = usage_page.at("//input[@id = 'UsageDataArrHdn']")
 
+    if usage_data_field.nil?
+      puts "Something went wrong. Please ensure User Name and Password are correct."
+      exit
+    end
+
     dates, readings = ParseUsageData(usage_data_field.attributes["value"].value)
 
     return [dates, readings]
@@ -42,6 +47,11 @@ class DominionScraper < Scraper
 
   def self.GetNextReadDate(usage_page)
     stripped_date = usage_page.at("//div[@id='homepageContent']//div[13]//div[1]//p").text.strip
+
+    if stripped_date.nil?
+      puts "Something went wrong- probably a connectivity issue."
+      exit
+    end
 
     return DateTime.strptime(stripped_date, '%B %d, %Y').strftime("%m/%d/%Y")
   end
