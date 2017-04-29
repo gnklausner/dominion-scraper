@@ -1,3 +1,3 @@
-Usage: `ruby src/scrape_dominion.rb {user_name} {password}`
+Usage: `ruby src/scrape_dominion.rb`
 
 To run tests: `bin/rspec --format doc`

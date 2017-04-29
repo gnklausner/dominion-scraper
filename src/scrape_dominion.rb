@@ -1,8 +1,13 @@
 require 'mechanize'
+require 'io/console'
 require_relative './dominion_scraper'
 
-USER_NAME = ARGV[0]
-PASSWORD = ARGV[1]
+print "User Name: "
+USER_NAME = STDIN.gets.chomp
+
+print "Password: "
+PASSWORD = STDIN.noecho(&:gets).chomp
+puts '' # Fun pitfall. Putting a print here causes the password to show.
 
 #############################
 # Login
